@@ -10,8 +10,14 @@ const server = express()
 server.use(express.json())
 server.use(helmet())
 
-server.use(cors())
 
+if (process.env.DATABASE_URL) {
+  server.use(cors({
+    origin: 'DATABASE_URL'
+}))
+} else {
+  server.use(cors())
+}
 server.options('*', cors())
 
 server.use('/api/users', usersRouter)
