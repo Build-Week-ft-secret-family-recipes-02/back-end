@@ -9,10 +9,7 @@ function getAllUsers() {
     return db('users') 
 }
 
-
-
 module.exports = {
     getAllUsers,
     insertUser,
-    
 }
