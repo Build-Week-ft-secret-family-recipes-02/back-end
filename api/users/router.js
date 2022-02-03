@@ -1,7 +1,7 @@
 const {
   getAllUsers,
   insertUser,
-  updateUser
+  deleteUser
 } = require('./model')
 
 const express = require('express')
@@ -18,5 +18,7 @@ router.post('/', async (req, res) => {
 })
 // http --pretty='none' :9000/api/users username='username10' password='password10'
 
-
+router.delete('/:user_id', async (req, res) => {
+  res.status(200).json(await deleteUser(req.params.id))
+})
 module.exports = router

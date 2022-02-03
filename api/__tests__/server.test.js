@@ -34,6 +34,7 @@ describe('server.js', () => {
 })
 
 describe('users/router.js runs at /api/users', () => {
+
    it('get returns status 200 and a response array containing seeded users', async () => {
     const res = await request(server)
       .get('/api/users')
@@ -48,6 +49,7 @@ describe('users/router.js runs at /api/users', () => {
     expect(res.status).toEqual(200)
     expect(responseUsers).toEqual(users)
   })
+
   it('post returns status 201 and a response of the newUser (ie a registration), with a user_id', async () => {
     const credentials =  {username: 'username10', password: 'password10'}
     const res = await request(server)
@@ -61,3 +63,42 @@ describe('users/router.js runs at /api/users', () => {
 
 })
 
+
+
+
+describe('recipes/router.js runs at /api/recipes', () => {
+
+   it('get returns status 200 and a response array containing seeded recipes', async () => {
+    const res = await request(server)
+      .get('/api/recipes')
+    const recipes = [
+      {recipe_id: 11, title: 'Heirloom Potato Stew', originator: 'Grandpa Jo', instructions: 'Boil heirloom potatoes in chicken broth.', category: 'soup',user_id: 11},
+      {recipe_id: 12, title: 'Mashed Carrots',  originator: 'Great Aunt May', instructions: 'Boil carrots in vegetable broth.', category: 'side',user_id: 12},
+      {recipe_id: 13, title: 'Boiled Cabbage ', originator: 'Cousin Arthur', instructions: 'Boil cabbage', category: 'side',user_id: 13},
+    ]
+    const responseRecipes = res.body.map( ({recipe_id, user_id, title, instructions, originator, category}) => {
+      return {recipe_id, user_id, title, instructions, originator, category}
+    } )
+    expect(res.status).toEqual(200)
+    expect(responseRecipes).toEqual(recipes)
+  })
+
+  it('post returns status 201 and a response of the newRecipe (ie creation), with a user_id', async () => {
+    const recipe = {
+      instructions:"boil turnips",
+      category:"soup",
+      originator:"cousin Lorem Ipsum",
+      title:"turnip soupe",
+      user_id:11
+    }
+
+    const res = await request(server)
+      .post('/api/recipes')
+      .send( recipe )
+    const { user_id, title, instructions, originator, category } = res.body
+    expect(res.status).toEqual(201)
+    expect({ user_id, title, instructions, originator, category }).toEqual(recipe)
+    expect(res.body.recipe_id).toBe(1)
+  })
+
+})
