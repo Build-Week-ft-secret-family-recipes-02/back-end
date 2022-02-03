@@ -11,13 +11,12 @@ const router = express.Router()
 router.get('/', async (req, res) => {
   res.json(await getAllUsers())
 })
+// http --pretty='none' :9000/api/users
 
-router.post('/api/users', async (req, res) => {
+router.post('/', async (req, res) => {
   res.status(201).json(await insertUser(req.body))
 })
+// http --pretty='none' :9000/api/users username='username10' password='password10'
 
-router.put('/api/users', async (req, res) => {
-  res.status(200).json(await updateUser(req.body))
-})
 
 module.exports = router

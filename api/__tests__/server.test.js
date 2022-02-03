@@ -56,7 +56,8 @@ describe('users/router.js runs at /api/users', () => {
     const { username, password } = res.body
     expect(res.status).toEqual(201)
     expect({username, password}).toEqual(credentials)
-    expect(res.body.user_id).toExist()
+    expect(res.body.user_id).toBe(1)
   })
+
 })
 

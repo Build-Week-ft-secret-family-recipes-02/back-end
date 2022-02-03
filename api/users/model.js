@@ -5,11 +5,6 @@ async function insertUser(user) {
   return newUserObject // { user_id: 7, username: 'foo', password: 'xxxxxxx' }
 }
 
-async function updateUser(user) {
-    const [updatedUserObject] = await db('users').update(user, ['user_id', 'username', 'password'])
-    return updatedUserObject // { user_id: 7, username: 'foo', password: 'xxxxxxx' }
-  }
-
 function getAllUsers() { 
     return db('users') 
 }
@@ -17,5 +12,4 @@ function getAllUsers() {
 module.exports = {
     getAllUsers,
     insertUser,
-    updateUser,
 }
