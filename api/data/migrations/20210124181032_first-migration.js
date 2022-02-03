@@ -12,7 +12,7 @@ exports.up = async (knex) => {
       recipes.increments('recipe_id')
       recipes.string('instructions', 200).notNullable()
       recipes.string('category', 200).notNullable()
-      recipes.string('originator', 200).notNullable()
+      recipes.string('source', 200).notNullable()
       recipes.string('title', 200).notNullable()
       recipes.integer('user_id')
       recipes.timestamps(false, true)

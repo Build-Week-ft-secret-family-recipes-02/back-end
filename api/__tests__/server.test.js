@@ -2,6 +2,7 @@ const request = require('supertest')
 const server = require('../server')
 const db = require('../data/db-config')
 
+
 beforeAll(async () => {
   await db.migrate.rollback()
   await db.migrate.latest()
@@ -72,12 +73,12 @@ describe('recipes/router.js runs at /api/recipes', () => {
     const res = await request(server)
       .get('/api/recipes')
     const recipes = [
-      {recipe_id: 11, title: 'Heirloom Potato Stew', originator: 'Grandpa Jo', instructions: 'Boil heirloom potatoes in chicken broth.', category: 'soup',user_id: 11},
-      {recipe_id: 12, title: 'Mashed Carrots',  originator: 'Great Aunt May', instructions: 'Boil carrots in vegetable broth.', category: 'side',user_id: 12},
-      {recipe_id: 13, title: 'Boiled Cabbage ', originator: 'Cousin Arthur', instructions: 'Boil cabbage', category: 'side',user_id: 13},
+      {recipe_id: 11, title: 'Heirloom Potato Stew', source: 'Grandpa Jo', instructions: 'Boil heirloom potatoes in chicken broth.', category: 'soup',user_id: 11},
+      {recipe_id: 12, title: 'Mashed Carrots',  source: 'Great Aunt May', instructions: 'Boil carrots in vegetable broth.', category: 'side',user_id: 12},
+      {recipe_id: 13, title: 'Boiled Cabbage ', source: 'Cousin Arthur', instructions: 'Boil cabbage', category: 'side',user_id: 13},
     ]
-    const responseRecipes = res.body.map( ({recipe_id, user_id, title, instructions, originator, category}) => {
-      return {recipe_id, user_id, title, instructions, originator, category}
+    const responseRecipes = res.body.map( ({recipe_id, user_id, title, instructions, source, category}) => {
+      return {recipe_id, user_id, title, instructions, source, category}
     } )
     expect(res.status).toEqual(200)
     expect(responseRecipes).toEqual(recipes)
@@ -87,7 +88,7 @@ describe('recipes/router.js runs at /api/recipes', () => {
     const recipe = {
       instructions:"boil turnips",
       category:"soup",
-      originator:"cousin Lorem Ipsum",
+      source:"cousin Lorem Ipsum",
       title:"turnip soupe",
       user_id:11
     }
@@ -95,10 +96,10 @@ describe('recipes/router.js runs at /api/recipes', () => {
     const res = await request(server)
       .post('/api/recipes')
       .send( recipe )
-    const { user_id, title, instructions, originator, category } = res.body
+    const { user_id, title, instructions, source, category } = res.body
     expect(res.status).toEqual(201)
-    expect({ user_id, title, instructions, originator, category }).toEqual(recipe)
+    expect({ user_id, title, instructions, source, category }).toEqual(recipe)
     expect(res.body.recipe_id).toBe(1)
   })
-
 })
+
