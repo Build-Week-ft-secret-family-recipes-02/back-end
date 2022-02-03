@@ -22,7 +22,12 @@ router.post('/', async (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-  res.status(201).json(req.body)
+  try{
+    const Authorization = { ...req.body, token: '0sdVWfS7sBkd87A'}
+    res.status(201).json(Authorization)
+   } catch (error) {
+    res.status(500).json(error)   
+  }
 })
 
 module.exports = router

@@ -40,7 +40,8 @@ const {
   })
   /* http --pretty='none' DELETE :9000/api/recipes/11 */
   router.put('/', async (req, res) => {
-    try{ const recipe = req.body
+    try{ 
+      const recipe = req.body
       const updatedRecipe = await updateRecipe(recipe)
       res.status(200).json(updatedRecipe)
     } catch(error){
