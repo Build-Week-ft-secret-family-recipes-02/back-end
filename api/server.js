@@ -14,7 +14,7 @@ server.use(helmet())
 if (process.env.DATABASE_URL) {
   server.use(cors({
     origin: 'DATABASE_URL'
-}))
+  }))
 } else {
   server.use(cors())
 }
