@@ -13,7 +13,6 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-   res.status(201).json(req.body)
    try{
     const user = await insertUser(req.body)
     res.status(201).json(user)
