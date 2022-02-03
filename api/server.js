@@ -4,20 +4,13 @@ const cors = require('cors')
 const usersRouter = require('./users/router')
 const recipesRouter = require('./recipes/router')
 
-
-
 const server = express()
 server.use(express.json())
 server.use(helmet())
 
 
-if (process.env.DATABASE_URL) {
-  server.use(cors({
-    origin: 'DATABASE_URL'
-  }))
-} else {
-  server.use(cors())
-}
+server.use(cors())
+
 server.options('*', cors())
 
 server.use('/api/users', usersRouter)
