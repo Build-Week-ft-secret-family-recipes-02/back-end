@@ -9,7 +9,12 @@ function getAllUsers() {
     return db('users') 
 }
 
+function getUserByUsername(username) { 
+    return db('users').where('username', username).first() 
+}
+
 module.exports = {
     getAllUsers,
     insertUser,
+    getUserByUsername
 }
