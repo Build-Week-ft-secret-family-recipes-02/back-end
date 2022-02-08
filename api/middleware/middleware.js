@@ -12,6 +12,7 @@ async function validateLogin (req, res, next) {
           username: user.username,
           user_id: user.user_id
         }
+
         next()
       }
     } catch (error){

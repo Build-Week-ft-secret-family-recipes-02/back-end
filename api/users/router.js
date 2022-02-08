@@ -29,6 +29,8 @@ router.post('/login', md.validateLogin, async (req, res) => {
     const {username, password, user_id} = await getUserByUsername(req.body.username)
     if(req.body.username == username && req.body.password == password){
       session=req.session;
+      req.session.loggedIn = true
+      req.session.username = username
       session.user={username, user_id}
       console.log(req.session)
       const Authorization = { ...req.body, token: '0sdVWfS7sBkd87A'}
